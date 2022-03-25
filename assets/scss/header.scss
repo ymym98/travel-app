@@ -1,0 +1,29 @@
+header {
+  background-color: #38b6ff;
+  height: 80px;
+
+  .header__icon {
+    // アイコンのサイズ、位置を調整
+    height: 70px;
+    padding-top: 5px;
+  }
+
+  .header__button {
+    float: right;
+    margin: 20px 10px 0 0;
+
+    &_signup,
+    &_signin {
+      background-color: white;
+      border: solid 0.5px navy;
+      color: navy;
+      padding: 5px 15px 5px 15px;
+      border-radius: 2px;
+      font-size: 16px;
+      margin-right: 3px;
+      &:hover {
+        filter: brightness(94%);
+      }
+    }
+  }
+}
