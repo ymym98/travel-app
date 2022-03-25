@@ -1,3 +1,9 @@
+// ファイル上部で以下のモジュール読み込みを追加
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const Sass = require('sass')
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const Fiber = require('fibers')
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -18,7 +24,8 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+
+  css: ['~assets/scss/common.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -45,5 +52,21 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+
+  // build.loaders のセクションに scss オプションを追加
+  build: {
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber,
+        },
+      },
+    },
+    /*
+     ** You can extend webpack config here
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    extend(config, ctx) {},
+  },
 }

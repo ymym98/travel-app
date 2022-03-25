@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <Tutorial /> -->
-    Nuxtのインデックス
+    <Tutorial />
   </div>
 </template>
 
