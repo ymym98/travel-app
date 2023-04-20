@@ -11,6 +11,10 @@ const routes: Array<RouteConfig> = [
     component: HomeView,
   },
   {
+    path: "/itemList",
+    component: () => import("../views/ItemList.vue"),
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting
@@ -18,10 +22,6 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
-    path: "/itemList",
-    component: () => import("../views/ItemList.vue"),
   },
 ];
 

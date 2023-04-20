@@ -1,7 +1,27 @@
 <template>
-  <div>
-    {{ searchResults }}
-    <button @click="search()">表示</button>
+  <div
+    class="container mt-16 flex justify-between item-center mx-auto px-8 md:px-14 lg:px-14 w-full"
+  >
+    <div class="w-full">
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
+        <div v-for="hotel of hotelList" :key="hotel.index">
+          <img
+            class="w-full h-72 lg:h-64 object-cover rounded-md"
+            :src="hotel.hotelImageUrl"
+          />
+          <div class="text-left">
+            <div class="mt-3 text-sm font-bold">{{ hotel.hotelName }}</div>
+            <p class="text-xs text-gray-600">
+              {{ hotel.address1 + hotel.address2 }}
+            </p>
+            <p class="text-xs font-bold text-gray-600">
+              ¥ {{ hotel.hotelMinCharge }}~ /泊
+            </p>
+          </div>
+        </div>
+      </div>
+      <button @click="search()">表示</button>
+    </div>
   </div>
 </template>
 
@@ -9,19 +29,21 @@
 export default {
   data() {
     return {
-      keyword: "",
-      searchResults: [],
+      hotelList: [],
     };
   },
   methods: {
     async search() {
       // クエリーストリングを作成
       const baseUrl =
-        "https://app.rakuten.co.jp/services/api/Travel/HotelRanking/20170426?";
+        "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20170426?";
 
       const params = {
         applicationId: "1043924183484318213",
-        genre: "onsen", // ジャンル指定
+        largeClassCode: "japan",
+        middleClassCode: "tokyo",
+        smallClassCode: "tokyo", // 東京23区
+        detailClassCode: "A", //  東京駅・銀座・日本橋
       };
       const queryParams = new URLSearchParams(params);
       console.log(baseUrl + queryParams);
@@ -31,12 +53,10 @@ export default {
         response.json()
       );
       console.log(response);
-      // 必要な情報を配列にpush
-      for (let i = 0; i < response.Rankings[0].Ranking.hotels.length; i++) {
-        const hotel = response.Rankings[0].Ranking.hotels[i].hotel;
-        const hotelName = hotel.hotelName; // ホテル名
+      for (let i = 0; i < response.hotels.length; i++) {
+        const hotel = response.hotels[i].hotel[0].hotelBasicInfo;
 
-        this.searchResults.push(hotelName);
+        this.hotelList.push(hotel);
       }
     },
   },
