@@ -19,6 +19,10 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/KeywordSearch.vue"),
   },
   {
+    path: "/hotelDetail/:id",
+    component: () => import("../views/HotelDetail.vue"),
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting
