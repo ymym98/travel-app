@@ -19,10 +19,13 @@
       <div class="w-full">
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
           <div v-for="hotel of hotelList" :key="hotel.index">
+            <!-- 画像をクリックしたら詳細画面に遷移 -->
             <img
               class="w-full h-72 lg:h-64 object-cover rounded-md"
               :src="hotel.hotelImageUrl"
+              @click="goToDetailPage(hotel.hotelNo)"
             />
+
             <div class="text-left">
               <div class="mt-3 text-sm font-bold">{{ hotel.hotelName }}</div>
               <p class="text-xs text-gray-600">
@@ -48,6 +51,9 @@ export default {
     };
   },
   methods: {
+    /**
+     *  キーワードから該当のホテルを検索する.
+     */
     async search() {
       this.hotelList = [];
       // クエリーストリングを作成
@@ -71,6 +77,15 @@ export default {
 
         this.hotelList.push(hotel);
       }
+    },
+
+    /**
+     * 画像をクリックしたホテルの詳細画面に遷移する.
+     * @param {*} id - hotelNo
+     */
+    goToDetailPage(id) {
+      console.log("ホテルのナンバー：", id);
+      this.$router.push(`/hotelDetail/${id}`);
     },
   },
 };

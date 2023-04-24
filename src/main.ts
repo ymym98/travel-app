@@ -13,12 +13,13 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faUserSecret,
   faMagnifyingGlass,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 Vue.config.productionTip = false;
 
 /* add icons to the library */
-library.add(faUserSecret, faMagnifyingGlass);
+library.add(faUserSecret, faMagnifyingGlass, faStar);
 
 /* add font awesome icon component */
 Vue.component("font-awesome-icon", FontAwesomeIcon);
