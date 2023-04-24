@@ -1,13 +1,43 @@
 <template>
   <div>
-    <div>
-      {{ hotelInfo[0].hotelName }}
+    <div class="container mx-auto mt-6">
+      <div class="w-3/5 container mx-auto">
+        <div class="object-cover">
+          <img :src="hotelInfo[0].hotelImageUrl" />
+          <img :src="hotelInfo[0].hotelMapImageUrl" />
+          <img :src="hotelInfo[0].roomImageUrl" />
+        </div>
+        <div class="flex mt-3 justify-between">
+          <span class="text-lg font-bold">
+            {{ hotelInfo[0].hotelName }}
+          </span>
+          <span>
+            <font-awesome-icon :icon="['fas', 'star']" size="xs" />
+            {{ hotelInfo[0].reviewAverage }}
+          </span>
+        </div>
+        <div class="text-xs text-gray-500 mt-3">
+          〒 {{ hotelInfo[0].postalCode }}
+          {{ hotelInfo[0].address1 }}
+          {{ hotelInfo[0].address2 }}
+        </div>
+        <div>
+          {{ hotelInfo[0].access }}
+        </div>
+        <div class="mt-7 text-sm">
+          {{ hotelInfo[0].hotelSpecial }}
+        </div>
+      </div>
     </div>
-    <img :src="hotelInfo[0].hotelImageUrl" alt="" />
   </div>
 </template>
 
 <script>
+// Initialization for ES Users
+import { Carousel, initTE } from "tw-elements";
+
+initTE({ Carousel });
+
 export default {
   data() {
     return {
@@ -42,6 +72,7 @@ export default {
 
     console.log("hotelInfoの中身:", this.hotelInfo);
   },
+
   methods: {},
 };
 </script>
