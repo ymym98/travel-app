@@ -23,6 +23,14 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/HotelDetail.vue"),
   },
   {
+    path: "/signUp",
+    component: () => import("../views/RegisterAdmin.vue"),
+  },
+  {
+    path: "/login",
+    component: () => import("../views/LoginView.vue"),
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting

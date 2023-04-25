@@ -9,11 +9,12 @@
 
         <!-- 会員登録等 -->
         <div class="space-x-12 hidden md:flex items-center">
-          <a
-            href="#portfolio"
-            class="hover:text-selected-text transition-all duration-300"
-            >ログイン</a
-          >
+          <!-- onAuthStateChangedがfalseならばこれを表示(後でv-ifを追記する) -->
+          <router-link to="/login">
+            <i class="hover:text-selected-text transition-all duration-300"></i
+            >ログイン
+          </router-link>
+
           <a
             href="#skills"
             class="hover:text-selected-text transition-all duration-300"
