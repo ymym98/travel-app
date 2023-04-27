@@ -7,6 +7,10 @@
       >
         <div class="text-lg font-bold">Travel.com</div>
 
+        <!-- ログイン状態なら名前を表示する -->
+        <div v-if="this.$store.getters.isLoggedIn">
+          {{ this.$store.getters.user.displayName }}さん
+        </div>
         <!-- 会員登録等 -->
         <div class="space-x-12 hidden md:flex items-center">
           <!-- ログアウト状態なら「ログイン」ボタンを表示 -->
@@ -24,11 +28,8 @@
             >ログアウト
           </router-link>
 
-          <a
-            href="#skills"
-            class="hover:text-selected-text transition-all duration-300"
-            >会員登録</a
-          >
+          <font-awesome-icon :icon="['fas', 'user']" />
+
           <a href="#contact">
             <button
               class="px-6 py-2 bg-theme font-bold rounded-lg hover:bg-purple-600 transition-all duration-300"
@@ -46,11 +47,17 @@
 </template>
 
 <script>
+import { auth } from "../firebase";
 export default {
   data() {
-    return {};
+    return {
+      displayName: "",
+    };
   },
   methods: {
+    /**
+     * ログアウトする.
+     */
     logOut() {
       this.$store.dispatch("logoutUser");
     },

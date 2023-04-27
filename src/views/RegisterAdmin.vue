@@ -2,11 +2,28 @@
   <div>
     <h1>ユーザ登録画面</h1>
     <form>
+      <!-- 名前 -->
+      <div class="mb-6">
+        <label
+          for="name"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >氏名</label
+        >
+        <input
+          v-model="displayName"
+          id="name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="トラベル  花子"
+          required
+        />
+      </div>
+
+      <!-- メールアドレス -->
       <div class="mb-6">
         <label
           for="email"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Email address</label
+          >メールアドレス</label
         >
         <input
           v-model="email"
@@ -17,11 +34,13 @@
           required
         />
       </div>
+
+      <!-- パスワード -->
       <div class="mb-6">
         <label
           for="password"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Password</label
+          >パスワード</label
         >
         <input
           v-model="password"
@@ -58,7 +77,11 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../firebase";
 
 export default {
@@ -66,16 +89,19 @@ export default {
     return {
       email: "",
       password: "",
+      displayName: "",
     };
   },
   methods: {
     registerUser() {
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          // Signed in
           console.log("成功");
           const user = userCredential.user;
-          // ...
+          updateProfile(auth.currentUser, {
+            displayName: this.displayName,
+            // photoURL: "https://example.com/jane-q-user/profile.jpg",
+          });
         })
         .catch((error) => {
           console.log("失敗");
