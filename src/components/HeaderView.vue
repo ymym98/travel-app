@@ -24,18 +24,23 @@
             >ログアウト
           </router-link>
 
-          <a
-            href="#skills"
-            class="hover:text-selected-text transition-all duration-300"
-            >会員登録</a
-          >
-          <a href="#contact">
+          <!-- <a href="#contact">
             <button
               class="px-6 py-2 bg-theme font-bold rounded-lg hover:bg-purple-600 transition-all duration-300"
             >
               お問い合わせ
             </button>
-          </a>
+          </a> -->
+
+          <!-- ログイン状態なら名前を表示する -->
+          <div v-if="this.$store.getters.isLoggedIn">
+            {{ this.$store.getters.user.displayName }}さん
+          </div>
+
+          <!-- ユーザープロフィール -->
+          <router-link to="/userInfo">
+            <font-awesome-icon :icon="['fas', 'user']" size="xl" />
+          </router-link>
         </div>
         <div class="md:hidden">
           <i class="fa-solid fa-bars"></i>
@@ -51,6 +56,9 @@ export default {
     return {};
   },
   methods: {
+    /**
+     * ログアウトする.
+     */
     logOut() {
       this.$store.dispatch("logoutUser");
     },

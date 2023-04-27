@@ -35,6 +35,11 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/LogoutView.vue"),
   },
   {
+    // 後ろにidをつけて、その人のところに飛ばせるようにする？
+    path: "/userInfo",
+    component: () => import("../views/UserInfo.vue"),
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting
