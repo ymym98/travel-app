@@ -39,35 +39,24 @@
       >
         ログイン
       </button>
-      <button
-        v-if="authenticatedUser"
-        @click="logoutUser()"
-        type="button"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        ログアウト
-      </button>
+      <logout-view></logout-view>
     </form>
   </div>
 </template>
 
 <script>
-import {
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import LogoutView from "./LogoutView.vue";
 
 export default {
+  components: { LogoutView },
   data() {
     return {
       // ログインメールアドレス
       email: "",
       // ログインパスワード
       password: "",
-      // ログイン判定(false:ログアウト状態 , true:ログイン状態)
-      authenticatedUser: false,
     };
   },
   methods: {
@@ -76,10 +65,8 @@ export default {
      */
     loginUser() {
       signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log("ログインユーザー：", user);
+        .then(() => {
+          this.$store.dispatch("onAuth");
           this.$router.push("/keywordSearch");
         })
         .catch((error) => {
@@ -89,35 +76,6 @@ export default {
           console.log("errorMessage", errorMessage);
         });
     },
-    /**
-     * ログアウトする.
-     */
-    logoutUser() {
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-          console.log("ログアウト");
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log("ログアウト失敗");
-        });
-    },
-  },
-  mounted() {
-    /**
-     * ログイン状態を判定する.
-     */
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        this.authenticatedUser = true;
-        console.log("authenticatedUser", this.authenticatedUser);
-      } else {
-        this.authenticatedUser = false;
-        console.log("authenticatedUser", this.authenticatedUser);
-      }
-    });
   },
 };
 </script>
