@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- 検索フォーム -->
+    <!-- 検索フォーム  検索機能を追加する-->
     <div class="flex justify-center">
       <input type="text" class="border-2 rounded-full h-9 w-64" />
-      <button type="submit" @click="search()">
+      <button type="submit">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
       </button>
     </div>
@@ -41,34 +41,6 @@ export default {
     return {
       hotelList: [],
     };
-  },
-  methods: {
-    async search() {
-      // クエリーストリングを作成
-      const baseUrl =
-        "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20170426?";
-
-      const params = {
-        applicationId: "1043924183484318213",
-        largeClassCode: "japan",
-        middleClassCode: "tokyo",
-        smallClassCode: "tokyo", // 東京23区
-        detailClassCode: "A", //  東京駅・銀座・日本橋
-      };
-      const queryParams = new URLSearchParams(params);
-      console.log(baseUrl + queryParams);
-
-      // fetchでJSON取得
-      const response = await fetch(baseUrl + queryParams).then((response) =>
-        response.json()
-      );
-      console.log(response);
-      for (let i = 0; i < response.hotels.length; i++) {
-        const hotel = response.hotels[i].hotel[0].hotelBasicInfo;
-
-        this.hotelList.push(hotel);
-      }
-    },
   },
 };
 </script>

@@ -9,11 +9,21 @@
 
         <!-- 会員登録等 -->
         <div class="space-x-12 hidden md:flex items-center">
-          <a
-            href="#portfolio"
-            class="hover:text-selected-text transition-all duration-300"
-            >ログイン</a
+          <!-- ログアウト状態なら「ログイン」ボタンを表示 -->
+          <router-link to="/login" v-if="!this.$store.getters.isLoggedIn">
+            <i class="hover:text-selected-text transition-all duration-300"></i
+            >ログイン
+          </router-link>
+          <!-- ログイン状態なら「ログアウト」ボタンを表示 -->
+          <router-link
+            to="/login"
+            @click.native="logOut"
+            v-if="this.$store.getters.isLoggedIn"
           >
+            <i class="hover:text-selected-text transition-all duration-300"></i
+            >ログアウト
+          </router-link>
+
           <a
             href="#skills"
             class="hover:text-selected-text transition-all duration-300"
@@ -36,7 +46,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch("logoutUser");
+    },
+  },
+};
 </script>
 
 <style></style>

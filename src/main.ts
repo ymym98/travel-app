@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./index.css";
+
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -31,3 +32,21 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+export default {
+  // created() {
+  //   auth.onAuthStateChanged((user) => {
+  //     setPersistence(auth, browserSessionPersistence)
+  //       .then(() => {
+  //         console.log("main.tsのuser:", user);
+  //       })
+  //       .catch((error) => {
+  //         // Handle Errors here.
+  //         const errorCode = error.code;
+  //         const errorMessage = error.message;
+  //         console.log("main.tsのerrorCode:", errorCode);
+  //         console.log("main.tsのerrorMessage:", errorMessage);
+  //       });
+  //   });
+  // },
+};
